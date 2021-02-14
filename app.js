@@ -28,6 +28,7 @@ const showImages = (images) => {
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
+    displaySpinner(false);
   })
 }
 const getImages = (query) => {
@@ -35,6 +36,7 @@ const getImages = (query) => {
     .then(response => response.json())
     .then(data => showImages(data.hits))
     .catch(err => console.log(err))
+    displaySpinner(true);
 }
 
 let slideIndex = 0;
@@ -125,3 +127,15 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+
+const displaySpinner = (show)=> {
+  const spinner = document.getElementById('loader');
+  if (show) {
+    spinner.classList.remove('d-none')
+  }
+ else{
+  spinner.classList.add('d-none');
+ }
+  
+}
